@@ -1,0 +1,39 @@
+
+html {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    align-items: stretch;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+#boxOfDivs {
+    height: 250px;
+    width: 250px;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+}
+
+.hoverDiv {
+    background-color: blue;
+}
+
+.squareStyle {
+    margin: 0;
+    color: black;
+    height: 50px;
+    width: 50px;
+    background-color: black;
+}
