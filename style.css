@@ -19,14 +19,12 @@ body {
 }
 
 #div-container {
+    display: grid;
     height: 400px;
     width: 400px;
     background-color: green;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16.1fr);
 
 }
 
@@ -38,4 +36,5 @@ body {
     height: 50px;
     width: 50px;
     background-color: black;
+    border: white solid 1px;
 }

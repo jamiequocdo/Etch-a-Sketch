@@ -2,10 +2,9 @@
 
 
 
-const maxSquares = parseInt(prompt("How big of a square"));
-console.log(typeof maxSquares);
+const maxSquares = 16;
 
-for (let i = 0; i < maxSquares; i++) {
+for (let i = 0; i < maxSquares * maxSquares; i++) {
     const squared = document.getElementById("div-container");
     const computedStyle = window.getComputedStyle(squared);
     const heightSquared = parseInt(computedStyle.getPropertyValue("height"));
