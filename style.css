@@ -14,9 +14,13 @@ body {
     
 }
 
-#boxOfDivs {
-    height: 250px;
-    width: 250px;
+.hoverDiv {
+    background-color: blue;
+}
+
+#div-container {
+    height: 400px;
+    width: 400px;
     background-color: green;
     display: flex;
     justify-content: center;
@@ -26,9 +30,7 @@ body {
 
 }
 
-.hoverDiv {
-    background-color: blue;
-}
+
 
 .squareStyle {
     margin: 0;
