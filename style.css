@@ -19,22 +19,16 @@ body {
 }
 
 #div-container {
-    display: grid;
+    display: flex;
     height: 400px;
     width: 400px;
     background-color: green;
-    grid-template-columns: repeat(16, 1fr);
-    grid-template-rows: repeat(16.1fr);
-
+    flex-wrap: wrap;
+    border: 1px dotted black;
 }
-
-
 
 .squareStyle {
     margin: 0;
     color: black;
-    height: 50px;
-    width: 50px;
     background-color: black;
-    border: white solid 1px;
 }

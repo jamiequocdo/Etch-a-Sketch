@@ -2,7 +2,7 @@
 
 
 
-const maxSquares = 16;
+const maxSquares = 20;
 
 for (let i = 0; i < maxSquares * maxSquares; i++) {
     const squared = document.getElementById("div-container");
