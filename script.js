@@ -7,7 +7,6 @@ let maxSquares = ""
 const gridSize = document.getElementById("gridSize");
 gridSize.addEventListener("click", createGrid);
 
-
 function createGrid() {
 
     //removes old grid
