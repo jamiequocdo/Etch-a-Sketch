@@ -2,21 +2,36 @@
 
 
 
-const maxSquares = parseInt(prompt("How big of a square"));
-console.log(typeof maxSquares);
+let maxSquares = ""
 
-for (let i = 0; i < maxSquares; i++) {
+const gridSize = document.getElementById("gridSize");
+gridSize.addEventListener("click", createGrid);
+
+
+function createGrid() {
+
+    //removes old grid
+    const gridSquares = document.querySelectorAll(".squareStyle"); //add this
+    gridSquares.forEach(child => { //add this
+        child.remove(); //add this
+    })
+
+    maxSquares = parseInt(prompt("How big is the grid?"));
     const squared = document.getElementById("div-container");
     const computedStyle = window.getComputedStyle(squared);
     const heightSquared = parseInt(computedStyle.getPropertyValue("height"));
     const widthSquared = parseInt(computedStyle.getPropertyValue("width"));
-    let square = document.createElement("div");
-    square.classList.add("squareStyle");
-    square.style.height = (heightSquared / maxSquares) + "px"
-    square.style.width = (widthSquared / maxSquares) + "px";
-    square.addEventListener("mouseover", () => {
-        square.style.backgroundColor = "white";
     
-    })
+    for (let i = 0; i < maxSquares * maxSquares; i++) {
+        let square = document.createElement("div");
+        square.classList.add("squareStyle");
+        square.style.height = (heightSquared / maxSquares) + "px"
+        square.style.width = (widthSquared / maxSquares) + "px";
+        square.addEventListener("mouseover", () => {
+            square.style.backgroundColor = "white";
+        
+        })
     squared.appendChild(square);
+}
+
 } 
