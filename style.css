@@ -10,12 +10,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    
+    flex-direction: row;
 }
 
-.hoverDiv {
-    background-color: blue;
+#button-div {
+    display: flex;
+    flex-direction: column;
+   margin-right: 200px; 
 }
 
 #div-container {
