@@ -28,24 +28,23 @@ function createGrid() {
         
 
         square.addEventListener("mouseover", () => {
-            square.style.backgroundColor = "rgb("
+            let redValue = ""
+            let greenValue = "";
+            let blueValue = "";
+            let rgbNames = [redValue, greenValue, blueValue];
+            let rgbValues = [];
+            rgbNames.forEach(value => {
+                value = Math.floor(Math.random() * 255);
+                rgbValues.push(value);
+            })
+            square.style.backgroundColor = `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]})`
         })
 
     squared.appendChild(square);
     }
 
 } 
-let redValue = ""
-let greenValue = "";
-let blueValue = "";
 
-let rgbValues = [redValue, greenValue, blueValue];
-rgbValues.forEach(value => {
-    value = Math.floor(Math.random() * 255);
-    console.log(value);
-})
-
-let randomValue = Math.floor(Math.random() * 255);
 
 
 /* Rainbow Mouseover
@@ -55,5 +54,5 @@ let randomValue = Math.floor(Math.random() * 255);
         - Object needs to be selected with document.getElement
     - Event Listener will pick color using RGB color
         - RGB color needs 3 random numbers
-            - produce 3 random numbers
+            - produce 3 random numbers (Done)
 */
