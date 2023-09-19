@@ -1,3 +1,5 @@
+//need to set a limit of 100% for the shade button so that it stops firing, taking up resources
+
 let maxSquares = "";
 
 const gridSize = document.getElementById("gridSize");
