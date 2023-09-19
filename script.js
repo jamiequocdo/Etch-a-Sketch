@@ -51,30 +51,23 @@ function toggleRainbowSquares() {
     })
 }
 
-
-        /*
-        This changes square to a random color continuously.  still need to have it so when rainbow button pressed, it occurs
-        square.addEventListener("mouseover", () => {
-            */
-
-    /* for 10% increase in shading, still need to create a maximum to 100%. also need to have this only trigger when shader button pressed
+//This allows Shader button to change mouseover to only do shading from black to white
+const shaderButton = document.getElementById("shaderButton");
+shaderButton.addEventListener("click", toggleShaderSquares)
+function toggleShaderSquares () {
+    const allSquares = document.querySelectorAll(".squareStyle");
+    allSquares.forEach(element => {
         let redValue = 0;
         let greenValue = 0;
         let blueValue = 0;
-
-        square.addEventListener("mouseover", () => {
-            
+        element.addEventListener("mouseover", () => {
             redValue += 10;
             greenValue += 10;
             blueValue += 10;
-            console.log(redValue);
             let rgbNames = [redValue, greenValue, blueValue];
-            square.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`; */
-
-            /*rgbNames.forEach(value => {
-                if (value <= 255) {
-                value += 10;
-                rgbValues.push(value);
-                }
-                console.log(rgbValues);
-            })*/
+            element.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`;
+            console.log(rgbNames);
+        })
+    })
+}
+    
