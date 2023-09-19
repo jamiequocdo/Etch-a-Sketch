@@ -1,4 +1,7 @@
+//need to set a limit of 100% for the shade button so that it stops firing, taking up resources
+
 let maxSquares = "";
+let isMouseDown = false;
 
 const gridSize = document.getElementById("gridSize");
 gridSize.addEventListener("click", createGrid);
@@ -23,7 +26,7 @@ function createGrid() {
         square.style.height = (heightSquared / maxSquares) + "px"
         square.style.width = (widthSquared / maxSquares) + "px";
         //This changes the square from black to white. this should be default
-        square.addEventListener("mouseover", () => {
+        square.addEventListener("mousedown", () => {
             square.style.backgroundColor = "white";
         })
     squared.appendChild(square);
