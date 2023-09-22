@@ -5,12 +5,14 @@ html {
     justify-content: center;
     height: 100%;
     align-items: stretch;
+    cursor: default;
 }
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    cursor: default;
 }
 
 #button-div {
@@ -25,13 +27,15 @@ body {
     display: flex;
     height: 400px;
     width: 400px;
-    background-color: green;
+    background-color: white;
     flex-wrap: wrap;
-    border: 1px dotted black;
+    border: 1px solid black;
+    box-shadow: 0px 0px 1px 1px rgb(0, 0, 0);
 }
 
 .squareStyle {
     margin: 0;
     color: black;
     background-color: black;
+    user-select: none;
 }

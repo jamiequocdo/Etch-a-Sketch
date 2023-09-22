@@ -1,7 +1,13 @@
-//need to set a limit of 100% for the shade button so that it stops firing, taking up resources
-
 let maxSquares = "";
 let isMouseDown = false;
+
+document.body.addEventListener("mousedown", () => {
+    isMouseDown = true;
+})
+
+document.body.addEventListener("mouseup", () => {
+    isMouseDown = false;
+})
 
 const gridSize = document.getElementById("gridSize");
 gridSize.addEventListener("click", createGrid);
@@ -13,7 +19,6 @@ function createGrid() {
     gridSquares.forEach(child => { 
         child.remove(); 
     })
-
     maxSquares = parseInt(prompt("How big is the grid?"));
     const squared = document.getElementById("div-container");
     const computedStyle = window.getComputedStyle(squared);
@@ -21,11 +26,19 @@ function createGrid() {
     const widthSquared = parseInt(computedStyle.getPropertyValue("width"));
     
     for (let i = 0; i < maxSquares * maxSquares; i++) {
+        
         let square = document.createElement("div");
         square.classList.add("squareStyle");
         square.style.height = (heightSquared / maxSquares) + "px"
         square.style.width = (widthSquared / maxSquares) + "px";
         //This changes the square from black to white. this should be default
+        //TODO Completed Mouseover & MouseDown event but look into the .type property.
+        square.addEventListener("mouseover", () => {
+            if (isMouseDown) {
+                square.style.backgroundColor = "white";
+            }
+        })
+
         square.addEventListener("mousedown", () => {
             square.style.backgroundColor = "white";
         })
@@ -34,27 +47,29 @@ function createGrid() {
     }
 }
 //Mouseover square elements now changes color to a random color
+//TODO Make eventListener mouseover AND mousedown
 const rainbowButton = document.getElementById("rainbowButton");
 rainbowButton.addEventListener("click", toggleRainbowSquares);
 function toggleRainbowSquares() {
     const allSquares = document.querySelectorAll(".squareStyle");
     allSquares.forEach(element => {
-        let redValue = ""
+        let redValue = "";
         let greenValue = "";
         let blueValue = "";
         let rgbNames = [redValue, greenValue, blueValue];
-        let rgbValues = [];
-        rgbNames.forEach(value => {
-            value = Math.floor(Math.random() * 255);
-            rgbValues.push(value);
-        })
         element.addEventListener("mouseover", () => {
+            let rgbValues = [];
+            rgbNames.forEach(value => {
+                value = Math.floor(Math.random() * 255);
+                rgbValues.push(value);
+            })
             element.style.backgroundColor = `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]})`
         })
     })
 }
 
 //This allows Shader button to change mouseover to only do shading from black to white
+//TODO Make eventListener mouseover AND mousedown
 const shaderButton = document.getElementById("shaderButton");
 shaderButton.addEventListener("click", toggleShaderSquares)
 function toggleShaderSquares () {
@@ -64,13 +79,27 @@ function toggleShaderSquares () {
         let greenValue = 0;
         let blueValue = 0;
         element.addEventListener("mouseover", () => {
-            redValue += 10;
-            greenValue += 10;
-            blueValue += 10;
-            let rgbNames = [redValue, greenValue, blueValue];
-            element.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`;
-            console.log(rgbNames);
+            if (redValue <100) {
+                redValue += 10;
+                greenValue += 10;
+                blueValue += 10;
+                let rgbNames = [redValue, greenValue, blueValue];
+                element.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`;
+                console.log(rgbNames);
+            }
+            
         })
     })
 }
-    
+
+/*
+let isMouseDown = false;
+console.log(isMouseDown);
+
+window.addEventListener("mousedown", (event) => {
+    if(event.button === 0) {
+        isMouseDown = true;
+        console.log(typeof isMouseDown);
+        console.log(isMouseDown);
+    }
+}) */
