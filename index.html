@@ -12,18 +12,20 @@
  
     <body>
         <div id="button-div">
-            <button id="gridSize">Grid Size</button>
+            <!--TODO singleColorButton allows person to only draw with 1 color-->
+            <button id="singleColorButton">Single</button>
             <button id="rainbowButton">Rainbow</button>
             <button id="shaderButton">Shader</button>
+            <!--TODO Add Eraser button that clears each element when mouse is down-->
+            <button id="eraserButton">Erase</button>
+            <button id="clearButton">Clear</button>
+            <input type="range" value="1" min="1" max="24">
+            <p id="outputValue">1 x 1</p>
         </div>
         
         <div id="div-container"></div>
-        <!--TODO Add a slider <input type="range"> to replace prompt();-->
-        <input type="range" min="0" max="100">
 
-        <!--TODO Add a clear button that erases everything but keeps grid size same-->
-
-        <!--TODO Add Eraser button that clears each element when mouse is down-->
+        
         
 
 

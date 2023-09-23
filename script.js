@@ -1,53 +1,51 @@
+//Does .type property fit into this code?
+const singleButton = document.getElementById("singleButton");
+const eraserButton = document.getElementById("eraserButton");
+const clearButton = document.getElementById("clearButton");
+
 let maxSquares = "";
 let isMouseDown = false;
 
 document.body.addEventListener("mousedown", () => {
     isMouseDown = true;
-})
+});
 
 document.body.addEventListener("mouseup", () => {
     isMouseDown = false;
-})
+});
 
-const gridSize = document.getElementById("gridSize");
-gridSize.addEventListener("click", createGrid);
-
-//Creates new grid of squares.  If one present, deletes old, makes new.
-function createGrid() {
-
+function resetGrid() {
     const gridSquares = document.querySelectorAll(".squareStyle");
     gridSquares.forEach(child => { 
         child.remove(); 
     })
-    maxSquares = parseInt(prompt("How big is the grid?"));
+}
+//Creates new grid of squares.  If one present, deletes old, makes new.
+function createGrid() {
+    resetGrid();
     const squared = document.getElementById("div-container");
     const computedStyle = window.getComputedStyle(squared);
     const heightSquared = parseInt(computedStyle.getPropertyValue("height"));
     const widthSquared = parseInt(computedStyle.getPropertyValue("width"));
-    
     for (let i = 0; i < maxSquares * maxSquares; i++) {
-        
         let square = document.createElement("div");
         square.classList.add("squareStyle");
         square.style.height = (heightSquared / maxSquares) + "px"
         square.style.width = (widthSquared / maxSquares) + "px";
         //This changes the square from black to white. this should be default
-        //TODO Completed Mouseover & MouseDown event but look into the .type property.
+        
         square.addEventListener("mouseover", () => {
             if (isMouseDown) {
-                square.style.backgroundColor = "white";
+                square.style.backgroundColor = "black";
             }
         })
-
-        square.addEventListener("mousedown", () => {
-            square.style.backgroundColor = "white";
-        })
+        
     squared.appendChild(square);
 
     }
 }
 //Mouseover square elements now changes color to a random color
-//TODO Make eventListener mouseover AND mousedown
+
 const rainbowButton = document.getElementById("rainbowButton");
 rainbowButton.addEventListener("click", toggleRainbowSquares);
 function toggleRainbowSquares() {
@@ -58,18 +56,19 @@ function toggleRainbowSquares() {
         let blueValue = "";
         let rgbNames = [redValue, greenValue, blueValue];
         element.addEventListener("mouseover", () => {
+            if (isMouseDown) {
             let rgbValues = [];
             rgbNames.forEach(value => {
                 value = Math.floor(Math.random() * 255);
                 rgbValues.push(value);
             })
             element.style.backgroundColor = `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]})`
+            }
         })
     })
 }
 
 //This allows Shader button to change mouseover to only do shading from black to white
-//TODO Make eventListener mouseover AND mousedown
 const shaderButton = document.getElementById("shaderButton");
 shaderButton.addEventListener("click", toggleShaderSquares)
 function toggleShaderSquares () {
@@ -79,7 +78,7 @@ function toggleShaderSquares () {
         let greenValue = 0;
         let blueValue = 0;
         element.addEventListener("mouseover", () => {
-            if (redValue <100) {
+            if (redValue <100 && isMouseDown) {
                 redValue += 10;
                 greenValue += 10;
                 blueValue += 10;
@@ -87,19 +86,31 @@ function toggleShaderSquares () {
                 element.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`;
                 console.log(rgbNames);
             }
-            
         })
     })
 }
 
-/*
-let isMouseDown = false;
-console.log(isMouseDown);
+let inputValue = document.querySelector("input");
+let outputValue = document.getElementById("outputValue");
 
-window.addEventListener("mousedown", (event) => {
-    if(event.button === 0) {
-        isMouseDown = true;
-        console.log(typeof isMouseDown);
-        console.log(isMouseDown);
-    }
-}) */
+inputValue.addEventListener("input", () => {
+    outputValue.textContent = `${inputValue.value} x ${inputValue.value}`;
+    maxSquares = inputValue.value;
+    createGrid();
+})
+
+clearButton.addEventListener("click", () => {
+    let allSquares = document.querySelectorAll(".squareStyle");
+    allSquares.forEach(square => {
+        square.style.backgroundColor = "white";
+    })
+});
+//eraserButton should happen with eventListener mouseover AND mousedown
+eraserButton.addEventListener("click", () => {
+    let allSquares = document.querySelectorAll(".squareStyle");
+    allSquares.forEach(square => {
+        square.addEventListener("mouseover", () => {
+            square.style.backgroundColor = "white";
+        })
+    })
+})
