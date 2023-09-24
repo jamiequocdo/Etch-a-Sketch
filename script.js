@@ -1,5 +1,6 @@
 //Does .type property fit into this code?
-const singleButton = document.getElementById("singleButton");
+//TODO Make it so squares change when mousedown AND mouseover
+const singleColorButton = document.getElementById("singleColorButton");
 const eraserButton = document.getElementById("eraserButton");
 const clearButton = document.getElementById("clearButton");
 
@@ -44,6 +45,16 @@ function createGrid() {
 
     }
 }
+//This changes the square from white to black.  This is the default
+//TODO Make it so I can choose the color from the input#colorPicker and it will change the color from that.
+singleColorButton.addEventListener("click", () => {
+    const allSquares = document.querySelectorAll(".squareStyle");
+    allSquares.forEach(square => {
+        square.addEventListener("mouseover", () => {
+            square.style.backgroundColor = "black";
+        })
+    })
+})
 //Mouseover square elements now changes color to a random color
 
 const rainbowButton = document.getElementById("rainbowButton");
@@ -90,12 +101,12 @@ function toggleShaderSquares () {
     })
 }
 
-let inputValue = document.querySelector("input");
+let gridValue = document.getElementById("gridValue");
 let outputValue = document.getElementById("outputValue");
 
-inputValue.addEventListener("input", () => {
-    outputValue.textContent = `${inputValue.value} x ${inputValue.value}`;
-    maxSquares = inputValue.value;
+gridValue.addEventListener("input", () => {
+    outputValue.textContent = `${gridValue.value} x ${gridValue.value}`;
+    maxSquares = gridValue.value;
     createGrid();
 })
 
@@ -105,6 +116,7 @@ clearButton.addEventListener("click", () => {
         square.style.backgroundColor = "white";
     })
 });
+
 //eraserButton should happen with eventListener mouseover AND mousedown
 eraserButton.addEventListener("click", () => {
     let allSquares = document.querySelectorAll(".squareStyle");

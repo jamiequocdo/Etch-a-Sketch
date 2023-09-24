@@ -12,14 +12,13 @@
  
     <body>
         <div id="button-div">
-            <!--TODO singleColorButton allows person to only draw with 1 color-->
+            <input type="color" id="colorPicker" value="#000000">
             <button id="singleColorButton">Single</button>
             <button id="rainbowButton">Rainbow</button>
             <button id="shaderButton">Shader</button>
-            <!--TODO Add Eraser button that clears each element when mouse is down-->
             <button id="eraserButton">Erase</button>
             <button id="clearButton">Clear</button>
-            <input type="range" value="1" min="1" max="24">
+            <input type="range" id="gridValue" value="1" min="1" max="24">
             <p id="outputValue">1 x 1</p>
         </div>
         
