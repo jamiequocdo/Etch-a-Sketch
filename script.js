@@ -32,15 +32,7 @@ function createGrid() {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
         square.style.height = (heightSquared / maxSquares) + "px"
-        square.style.width = (widthSquared / maxSquares) + "px";
-        //This changes the square from black to white. this should be default
-        
-        square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = "black";
-            }
-        })
-        
+        square.style.width = (widthSquared / maxSquares) + "px";    
     squared.appendChild(square);
 
     }
@@ -51,7 +43,10 @@ singleColorButton.addEventListener("click", () => {
     const allSquares = document.querySelectorAll(".squareStyle");
     allSquares.forEach(square => {
         square.addEventListener("mouseover", () => {
-            square.style.backgroundColor = "black";
+            if (isMouseDown) {
+                square.style.backgroundColor = "black";    
+            }
+            
         })
     })
 })
@@ -113,7 +108,7 @@ gridValue.addEventListener("input", () => {
 clearButton.addEventListener("click", () => {
     let allSquares = document.querySelectorAll(".squareStyle");
     allSquares.forEach(square => {
-        square.style.backgroundColor = "white";
+            square.style.backgroundColor = "white";
     })
 });
 
@@ -122,7 +117,9 @@ eraserButton.addEventListener("click", () => {
     let allSquares = document.querySelectorAll(".squareStyle");
     allSquares.forEach(square => {
         square.addEventListener("mouseover", () => {
-            square.style.backgroundColor = "white";
+            if (isMouseDown) {
+                square.style.backgroundColor = "white";
+            }
         })
     })
 })
