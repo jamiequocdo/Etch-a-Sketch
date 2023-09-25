@@ -1,8 +1,12 @@
 //Does .type property fit into this code?
-//TODO Make it so squares change when mousedown AND mouseover
 const singleColorButton = document.getElementById("singleColorButton");
 const eraserButton = document.getElementById("eraserButton");
 const clearButton = document.getElementById("clearButton");
+const colorPicker = document.getElementById("colorPicker");
+const gridValue = document.getElementById("gridValue");
+const outputValue = document.getElementById("outputValue");
+const squared = document.getElementById("div-container");
+const colorPreview = document.getElementById("colorPreview")
 
 let maxSquares = "";
 let isMouseDown = false;
@@ -24,7 +28,8 @@ function resetGrid() {
 //Creates new grid of squares.  If one present, deletes old, makes new.
 function createGrid() {
     resetGrid();
-    const squared = document.getElementById("div-container");
+    outputValue.textContent = `${gridValue.value} x ${gridValue.value}`
+    maxSquares = gridValue.value;
     const computedStyle = window.getComputedStyle(squared);
     const heightSquared = parseInt(computedStyle.getPropertyValue("height"));
     const widthSquared = parseInt(computedStyle.getPropertyValue("width"));
@@ -32,26 +37,31 @@ function createGrid() {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
         square.style.height = (heightSquared / maxSquares) + "px"
-        square.style.width = (widthSquared / maxSquares) + "px";    
-    squared.appendChild(square);
-
-    }
-}
-//This changes the square from white to black.  This is the default
-//TODO Make it so I can choose the color from the input#colorPicker and it will change the color from that.
-singleColorButton.addEventListener("click", () => {
-    const allSquares = document.querySelectorAll(".squareStyle");
-    allSquares.forEach(square => {
+        square.style.width = (widthSquared / maxSquares) + "px";
         square.addEventListener("mouseover", () => {
             if (isMouseDown) {
                 square.style.backgroundColor = "black";    
             }
-            
+        })    
+    squared.appendChild(square);
+
+    }
+}
+
+//Single Color button - Automatically black.
+colorPicker.addEventListener("input", () => {
+    const allSquares = document.querySelectorAll(".squareStyle");
+    colorPreview.style.backgroundColor = colorPicker.value;
+    allSquares.forEach(square => {
+        square.addEventListener("mouseover", () => {
+            if (isMouseDown) {
+                square.style.backgroundColor = colorPicker.value;
+            }
         })
     })
 })
-//Mouseover square elements now changes color to a random color
 
+//Rainbow Collor: Mouseover square elements now changes color to a random color
 const rainbowButton = document.getElementById("rainbowButton");
 rainbowButton.addEventListener("click", toggleRainbowSquares);
 function toggleRainbowSquares() {
@@ -96,9 +106,6 @@ function toggleShaderSquares () {
     })
 }
 
-let gridValue = document.getElementById("gridValue");
-let outputValue = document.getElementById("outputValue");
-
 gridValue.addEventListener("input", () => {
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`;
     maxSquares = gridValue.value;
@@ -112,7 +119,6 @@ clearButton.addEventListener("click", () => {
     })
 });
 
-//eraserButton should happen with eventListener mouseover AND mousedown
 eraserButton.addEventListener("click", () => {
     let allSquares = document.querySelectorAll(".squareStyle");
     allSquares.forEach(square => {
@@ -123,3 +129,5 @@ eraserButton.addEventListener("click", () => {
         })
     })
 })
+
+createGrid();
