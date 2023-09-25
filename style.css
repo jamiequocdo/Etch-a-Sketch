@@ -1,38 +1,61 @@
-/*TODO div-container keeps its shape when browser gets smaller.  And button-div goes below the div-container*/
+/*TODO And button-div goes below the div-container*/
 html {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
-    align-items: stretch;
-    cursor: default;
+    align-items: center;
     background-color: lightgray;
+    height: 100%;
+    width: 100%;
 }
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    cursor: default;
+    width: 100%;
 }
+/*TODO All content shrinks a maximum of 2 times as the browser 
+is resized smaller and smaller*/
+/*TODO After content shrinks 2 times, the div-container will appear at the top of page
+and buttons appear at bottom of page*/
+/*TODO There will be a minimum size that the browser can be resized to.  Pick a number
 
+#contentContainer {
+    display: flex;
+    flex-direction: row;
+
+}
+/*styling for all the buttons*/
 #button-div {
     display: flex;
     flex-direction: column;
     margin-right: 200px; 
     gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    flex-shrink: 2;
 
 }
 
+/*Element where grid appears*/
 #div-container {
     display: flex;
     height: 400px;
     width: 400px;
+    min-height: 400px;
+    min-width: 400px;
     background-color: white;
     flex-wrap: wrap;
     border: 1px solid black;
     box-shadow: 0px 0px 1px 1px rgb(0, 0, 0);
+    flex-shrink: 1;
 }
+
+.button {
+    width: 100px;
+}
+
+
 
 .squareStyle {
     margin: 0;
@@ -49,4 +72,32 @@ body {
 #outputValue {
     text-align: center;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#colorPickerContainer {
+    position: relative;
+    width: 100px;
+    height: 100px;
+
+}
+#colorPicker {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: none;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+#colorPreview {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background-color: #000000;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    z-index: 1;
 }
