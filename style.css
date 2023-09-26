@@ -17,7 +17,7 @@ body {
 is resized smaller and smaller*/
 /*TODO After content shrinks 2 times, the div-container will appear at the top of page
 and buttons appear at bottom of page*/
-/*TODO There will be a minimum size that the browser can be resized to.  Pick a number
+/*TODO There will be a minimum size that the browser can be resized to.  Pick a number*/
 
 #contentContainer {
     display: flex;
@@ -33,8 +33,11 @@ and buttons appear at bottom of page*/
     justify-content: center;
     align-items: center;
     height: 400px;
-    flex-shrink: 2;
 
+}
+
+.button {
+    width: 100px;
 }
 
 /*Element where grid appears*/
