@@ -30,14 +30,10 @@ function createGrid() {
     resetGrid();
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`
     maxSquares = gridValue.value;
-    const computedStyle = window.getComputedStyle(squared);
-    const heightSquared = parseInt(computedStyle.getPropertyValue("height"));
-    const widthSquared = parseInt(computedStyle.getPropertyValue("width"));
+    squared.style.setProperty("--max-squares", maxSquares);
     for (let i = 0; i < maxSquares * maxSquares; i++) {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
-        square.style.height = (heightSquared / maxSquares) + "px"
-        square.style.width = (widthSquared / maxSquares) + "px";
         square.addEventListener("mouseover", () => {
             if (isMouseDown) {
                 square.style.backgroundColor = "black";    
@@ -109,7 +105,10 @@ function toggleShaderSquares () {
 gridValue.addEventListener("input", () => {
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`;
     maxSquares = gridValue.value;
+    squared.style.setProperty("--max-squares", maxSquares);
     createGrid();
+
+    
 })
 
 clearButton.addEventListener("click", () => {

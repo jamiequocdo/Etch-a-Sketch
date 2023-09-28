@@ -1,4 +1,3 @@
-/*TODO And button-div goes below the div-container*/
 html {
     display: flex;
     flex-direction: column;
@@ -13,11 +12,6 @@ body {
     justify-content: center;
     width: 100%;
 }
-/*TODO All content shrinks a maximum of 2 times as the browser 
-is resized smaller and smaller*/
-/*TODO After content shrinks 2 times, the div-container will appear at the top of page
-and buttons appear at bottom of page*/
-/*TODO There will be a minimum size that the browser can be resized to.  Pick a number*/
 
 #contentContainer {
     display: flex;
@@ -45,13 +39,13 @@ and buttons appear at bottom of page*/
     display: flex;
     height: 400px;
     width: 400px;
-    min-height: 400px;
-    min-width: 400px;
     background-color: white;
     flex-wrap: wrap;
     border: 1px solid black;
     box-shadow: 0px 0px 1px 1px rgb(0, 0, 0);
     flex-shrink: 1;
+    margin: 0;
+    padding: 0;
 }
 
 .button {
@@ -62,9 +56,11 @@ and buttons appear at bottom of page*/
 
 .squareStyle {
     margin: 0;
+    padding: 0;
     background-color: white;
     user-select: none;
-    padding: 0;
+    width: calc(100% / var(--max-squares));
+    height: calc(100% / var(--max-squares));
 }
 
 #outputValue {
@@ -105,8 +101,45 @@ and buttons appear at bottom of page*/
     z-index: 1;
 }
 
+@media (max-width: 745px) {
+    #div-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    #button-div {
+        margin-right: 50px;
+    }
+}
+
 @media (max-width: 500px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    #div-container {
+        width: 200px;
+        height: 200px;
+        min-height: 200px;
+        min-width: 200px;
+    }
+
+    .button {
+        width: 70px;
+    }
+
+    .squareStyle {
+        width: calc(100% / var(--max-squares));
+        height: calc(100% / var(--max-squares));
+    }
     #contentContainer {
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #button-div {
+        margin: 0;
     }
 }
