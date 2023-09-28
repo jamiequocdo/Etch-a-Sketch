@@ -104,3 +104,9 @@ and buttons appear at bottom of page*/
     right: 0;
     z-index: 1;
 }
+
+@media (max-width: 500px) {
+    #contentContainer {
+        flex-direction: column;
+    }
+}
