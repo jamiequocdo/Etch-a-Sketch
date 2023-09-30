@@ -1,11 +1,11 @@
-//Does .type property fit into this code?
+//TODO Does .type property fit into this code?
 const singleColorButton = document.getElementById("singleColorButton");
 const eraserButton = document.getElementById("eraserButton");
 const clearButton = document.getElementById("clearButton");
 const colorPicker = document.getElementById("colorPicker");
 const gridValue = document.getElementById("gridValue");
 const outputValue = document.getElementById("outputValue");
-const squared = document.getElementById("div-container");
+const squareContainer = document.getElementById("squareContainer");
 const colorPreview = document.getElementById("colorPreview")
 
 let maxSquares = "";
@@ -30,19 +30,21 @@ function createGrid() {
     resetGrid();
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`
     maxSquares = gridValue.value;
-    squared.style.setProperty("--max-squares", maxSquares);
+    squareContainer.style.setProperty("--max-squares", maxSquares);
     for (let i = 0; i < maxSquares * maxSquares; i++) {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
-        square.addEventListener("mouseover", () => {
+        /*square.addEventListener("mouseover", () => {
             if (isMouseDown) {
                 square.style.backgroundColor = "black";    
             }
-        })    
-    squared.appendChild(square);
+        })*/    
+    squareContainer.appendChild(square);
 
     }
 }
+
+
 
 //Single Color button - Automatically black.
 colorPicker.addEventListener("input", () => {
@@ -105,7 +107,7 @@ function toggleShaderSquares () {
 gridValue.addEventListener("input", () => {
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`;
     maxSquares = gridValue.value;
-    squared.style.setProperty("--max-squares", maxSquares);
+    squareContainer.style.setProperty("--max-squares", maxSquares);
     createGrid();
 
     
@@ -120,6 +122,7 @@ clearButton.addEventListener("click", () => {
 
 eraserButton.addEventListener("click", () => {
     let allSquares = document.querySelectorAll(".squareStyle");
+
     allSquares.forEach(square => {
         square.addEventListener("mouseover", () => {
             if (isMouseDown) {
@@ -130,3 +133,12 @@ eraserButton.addEventListener("click", () => {
 })
 
 createGrid();
+
+//TODO Button highlights to show what setting is active
+const buttons = document.querySelectorAll(".button");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        button.classList.toggle("active");
+    })
+})

@@ -16,6 +16,7 @@ body {
 #contentContainer {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
 }
 /*styling for all the buttons*/
@@ -26,16 +27,34 @@ body {
     gap: 20px;
     justify-content: center;
     align-items: center;
-    height: 400px;
-
+    height: 600px;
 }
 
 .button {
-    width: 100px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #d3d3d3;
+    padding: 10px 20px;
+}
+
+/*TODO Buttons highlight to so which setting is active */
+.button.active {
+    background-color: black;
+    color: white;
+}
+
+.button,
+#colorPickerContainer {
+    transition: transform 0.1s ease-in-out;
+}
+.button:hover,
+#colorPickerContainer:hover {
+    transform: scale(1.05);
 }
 
 /*Element where grid appears*/
-#div-container {
+#squareContainer {
     display: flex;
     height: 400px;
     width: 400px;
