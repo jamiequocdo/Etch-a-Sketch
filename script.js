@@ -120,6 +120,7 @@ clearButton.addEventListener("click", () => {
 
 eraserButton.addEventListener("click", () => {
     let allSquares = document.querySelectorAll(".squareStyle");
+
     allSquares.forEach(square => {
         square.addEventListener("mouseover", () => {
             if (isMouseDown) {
@@ -130,3 +131,12 @@ eraserButton.addEventListener("click", () => {
 })
 
 createGrid();
+
+//TODO Button highlights to show what setting is active
+const buttons = document.querySelectorAll(".button");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        button.classList.toggle("active");
+    })
+})
