@@ -1,5 +1,9 @@
 //TODO Does .type property fit into this code?
+//TODO Add "Undo" to Etch-a-Sketch?
+//TODO Add "Free Draw" to Etch-a-Sketch?
+//TODO The modes need to activate when mouse is down on the first square
 const singleColorButton = document.getElementById("singleColorButton");
+const rainbowButton = document.getElementById("rainbowButton");
 const eraserButton = document.getElementById("eraserButton");
 const clearButton = document.getElementById("clearButton");
 const colorPicker = document.getElementById("colorPicker");
@@ -10,6 +14,7 @@ const colorPreview = document.getElementById("colorPreview")
 
 let maxSquares = "";
 let isMouseDown = false;
+let currentMode = "colorPicker";
 
 document.body.addEventListener("mousedown", () => {
     isMouseDown = true;
@@ -34,6 +39,8 @@ function createGrid() {
     for (let i = 0; i < maxSquares * maxSquares; i++) {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
+        square.addEventListener("mouseover", changeColor);
+        square.addEventListener("mousedown", changeColor);
         /*square.addEventListener("mouseover", () => {
             if (isMouseDown) {
                 square.style.backgroundColor = "black";    
@@ -58,8 +65,23 @@ colorPicker.addEventListener("input", () => {
         })
     })
 })
-
+console.log(currentMode);
 //Rainbow Collor: Mouseover square elements now changes color to a random color
+rainbowButton.addEventListener("click", () => {
+    currentMode = "rainbow";
+    console.log(currentMode);
+});
+
+function changeColor(e) {
+    if (currentMode === "color") {
+        e.target.style.backgroundColor = colorPicker.value
+    } else if (currentMode ==="rainbow") {
+        console.log(currentMode)
+    } else if (currentMode === "shader") {
+        console.log(currentMode)
+    }
+}
+/*
 const rainbowButton = document.getElementById("rainbowButton");
 rainbowButton.addEventListener("click", toggleRainbowSquares);
 function toggleRainbowSquares() {
@@ -81,6 +103,7 @@ function toggleRainbowSquares() {
         })
     })
 }
+*/
 
 //This allows Shader button to change mouseover to only do shading from black to white
 const shaderButton = document.getElementById("shaderButton");
@@ -142,3 +165,7 @@ buttons.forEach(button => {
         button.classList.toggle("active");
     })
 })
+
+window.onload = () => {
+    currentMode = "color"
+}
