@@ -1,4 +1,6 @@
 //TODO Does .type property fit into this code?
+//TODO Add "Undo" to Etch-a-Sketch?
+//TODO Add "Free Draw" to Etch-a-Sketch?
 const singleColorButton = document.getElementById("singleColorButton");
 const rainbowButton = document.getElementById("rainbowButton");
 const eraserButton = document.getElementById("eraserButton");
@@ -65,28 +67,23 @@ colorPicker.addEventListener("input", () => {
 })
 
 //Rainbow Collor: Mouseover square elements now changes color to a random color
-const rainbowButton = document.getElementById("rainbowButton");
-rainbowButton.addEventListener("click", toggleRainbowSquares);
-function toggleRainbowSquares() {
-    const allSquares = document.querySelectorAll(".squareStyle");
-    allSquares.forEach(element => {
-        let redValue = "";
-        let greenValue = "";
-        let blueValue = "";
-        let rgbNames = [redValue, greenValue, blueValue];
-        element.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-            let rgbValues = [];
-            rgbNames.forEach(value => {
-                value = Math.floor(Math.random() * 255);
-                rgbValues.push(value);
-            })
-            element.style.backgroundColor = `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]})`
-            }
-        })
-    })
+rainbowButton.addEventListener("click", () => {
+    currentMode = "rainbow";
+});
+
+function changeColor(e) {
+    if (e.type === "mouseover" && !isMouseDown) return;
+    if (currentMode === "color") {
+        e.target.style.backgroundColor = colorPicker.value
+    } else if (currentMode ==="rainbow") {
+        randomR = Math.floor(Math.random() * 256);
+        randomG = Math.floor(Math.random() * 256);
+        randomB = Math.floor(Math.random() * 256);
+                e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+    } else if (currentMode === "shader") {
+        //TODO Change shader so that it gets lighter no matter what color it is.  Need to get property of rgb
+    } else if (currentMode === "eraser");
 }
-*/
 
 //This allows Shader button to change mouseover to only do shading from black to white
 const shaderButton = document.getElementById("shaderButton");
@@ -152,3 +149,18 @@ buttons.forEach(button => {
 window.onload = () => {
     currentMode = "color"
 }
+
+//TODO make it work so that I can find out what the rgb color is to make the shader work
+squareContainer.addEventListener("click", function (e) {
+    const clickedElement = e.target
+    const computedStyle = getComputedStyle(clickedElement);
+    const backgroundColor = computedStyle.backgroundColor;
+    const rgbMatch = backgroundColor.match(/\d+/g);
+    if (rgbMatch) {
+        const redValue = parseInt(rgbMatch[0]);
+        const greenValue = parseInt(rgbMatch[1]);
+        const blueValue = parseInt(rgbMatch[2]);
+
+        console.log(`rgb(${redValue}, ${greenValue}, ${blueValue})`)
+    }
+});
