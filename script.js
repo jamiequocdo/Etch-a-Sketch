@@ -1,6 +1,6 @@
-//TODO Does .type property fit into this code?
 //TODO Add "Undo" to Etch-a-Sketch?
 //TODO Add "Free Draw" to Etch-a-Sketch?
+//TODO Draw a diagram of how each function works (To understand what is going on with the program)
 const singleColorButton = document.getElementById("singleColorButton");
 const rainbowButton = document.getElementById("rainbowButton");
 const shaderButton = document.getElementById("shaderButton");
@@ -14,7 +14,7 @@ const colorPreview = document.getElementById("colorPreview")
 
 let maxSquares = "";
 let isMouseDown = false;
-let currentMode = "colorPicker";
+let currentMode = "color";
 
 document.body.addEventListener("mousedown", () => {
     isMouseDown = true;
@@ -39,42 +39,60 @@ function createGrid() {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
         square.addEventListener("mouseover", changeColor);
-        square.addEventListener("mousedown", changeColor);
-        /*square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = "black";    
-            }
-        })*/    
+        square.addEventListener("mousedown", changeColor); 
     squareContainer.appendChild(square);
     }
 }
 
-//Single Color button - Automatically black
-/*colorPicker.addEventListener("input", () => {
-    const allSquares = document.querySelectorAll(".squareStyle");
-    colorPreview.style.backgroundColor = colorPicker.value;
-    allSquares.forEach(square => {
-        square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = colorPicker.value;
-            }
-        })
-    })
-})*/
-
 colorPicker.addEventListener("input", () => {
-    currentMode = "color";
+    setCurrentMode("color");
     colorPreview.style.backgroundColor = colorPicker.value;
 })
-
 //Rainbow Collor: Mouseover square elements now changes color to a random color
 rainbowButton.addEventListener("click", () => {
-    currentMode = "rainbow";
+    setCurrentMode("rainbow");
+    console.log(currentMode);
 });
 
 shaderButton.addEventListener("click", () => {
-    currentMode = "shader";
+    setCurrentMode("shader");
+    console.log(currentMode);
 })
+
+eraserButton.addEventListener("click", () => {
+    setCurrentMode("eraser");
+    console.log(currentMode);
+})
+
+function setCurrentMode(newMode) {
+    activateNewMode(newMode);
+    currentMode = newMode;
+}
+
+function activateNewMode(newMode) {
+    //TODO Create a css.style to highlist the color currentMode
+    if (currentMode === "color") {
+        const allButtons = document.querySelectorAll(".active");
+        allButtons.forEach (button => {
+            button.classList.remove("active");
+        })
+    }
+    if (currentMode === "rainbow") {
+        rainbowButton.classList.remove("active");
+    } else if (currentMode === "shader") {
+        shaderButton.classList.remove("active");
+    } else if (currentMode === "eraser") {
+        eraserButton.classList.remove("active");
+    };
+
+    if (newMode === "rainbow") {
+        rainbowButton.classList.add("active");
+    } else if (newMode === "shader") {
+        shaderButton.classList.add("active");
+    } else if (newMode === "eraser") {
+        eraserButton.classList.add("active");
+    };
+}
 
 
 
@@ -82,39 +100,18 @@ function changeColor(e) {
     if (e.type === "mouseover" && !isMouseDown) return;
     if (currentMode === "color") {
         e.target.style.backgroundColor = colorPicker.value
-    } else if (currentMode ==="rainbow") {
+    } else if (currentMode === "rainbow") {
         randomR = Math.floor(Math.random() * 256);
         randomG = Math.floor(Math.random() * 256);
         randomB = Math.floor(Math.random() * 256);
-                e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
     } else if (currentMode === "shader") {
-        //TODO Change shader so that it gets lighter no matter what color it is.  Need to get property of rgb
         increaseShadeColor(e);
-    } else if (currentMode === "eraser");
+    } else if (currentMode === "eraser") {
+        e.target.style.backgroundColor = "rgb(255, 255, 255)";
+    }
 }
 
-//This allows Shader button to change mouseover to only do shading from black to white
-/*
-shaderButton.addEventListener("click", toggleShaderSquares)
-function toggleShaderSquares () {
-    const allSquares = document.querySelectorAll(".squareStyle");
-    allSquares.forEach(element => {
-        let redValue = 0;
-        let greenValue = 0;
-        let blueValue = 0;
-        element.addEventListener("mouseover", () => {
-            if (redValue <100 && isMouseDown) {
-                redValue += 10;
-                greenValue += 10;
-                blueValue += 10;
-                let rgbNames = [redValue, greenValue, blueValue];
-                element.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`;
-                console.log(rgbNames);
-            }
-        })
-    })
-}
-*/
 
 gridValue.addEventListener("input", () => {
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`;
@@ -132,29 +129,8 @@ clearButton.addEventListener("click", () => {
     })
 });
 
-eraserButton.addEventListener("click", () => {
-    let allSquares = document.querySelectorAll(".squareStyle");
-
-    allSquares.forEach(square => {
-        square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = "white";
-            }
-        })
-    })
-})
-
 createGrid();
-
-//TODO Button highlights to show what setting is active
-const buttons = document.querySelectorAll(".button");
-
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        button.classList.toggle("active");
-    })
-})
-
+ 
 window.onload = () => {
     currentMode = "color"
 }
@@ -170,7 +146,6 @@ function increaseShadeColor(e) {
         const greenValue = Math.min(parseInt(rgbMatch[1]) + 25, 255);
         const blueValue = Math.min(parseInt(rgbMatch[2]) + 25, 255);
 
-        console.log(`rgb(${redValue}, ${greenValue}, ${blueValue})`)
         clickedElement.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
     }
 };
