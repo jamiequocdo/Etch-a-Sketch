@@ -38,7 +38,7 @@ body {
     padding: 10px 20px;
 }
 
-/*TODO Buttons highlight to so which setting is active */
+/*When you put both .button.active together, it applies to elements with both of these classes*/
 .button.active {
     background-color: black;
     color: white;
