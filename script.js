@@ -1,5 +1,3 @@
-//TODO Add "Undo" to Etch-a-Sketch?
-//TODO Add "Free Draw" to Etch-a-Sketch?
 //TODO Draw a diagram of how each function works (To understand what is going on with the program)
 const singleColorButton = document.getElementById("singleColorButton");
 const rainbowButton = document.getElementById("rainbowButton");
@@ -51,17 +49,14 @@ colorPicker.addEventListener("input", () => {
 //Rainbow Collor: Mouseover square elements now changes color to a random color
 rainbowButton.addEventListener("click", () => {
     setCurrentMode("rainbow");
-    console.log(currentMode);
 });
 
 shaderButton.addEventListener("click", () => {
     setCurrentMode("shader");
-    console.log(currentMode);
 })
 
 eraserButton.addEventListener("click", () => {
     setCurrentMode("eraser");
-    console.log(currentMode);
 })
 
 function setCurrentMode(newMode) {
@@ -70,7 +65,6 @@ function setCurrentMode(newMode) {
 }
 
 function activateNewMode(newMode) {
-    //TODO Create a css.style to highlist the color currentMode
     if (currentMode === "color") {
         const allButtons = document.querySelectorAll(".active");
         allButtons.forEach (button => {
@@ -129,12 +123,6 @@ clearButton.addEventListener("click", () => {
     })
 });
 
-createGrid();
- 
-window.onload = () => {
-    currentMode = "color"
-}
-
 //Function for when currentMode = "shader";
 function increaseShadeColor(e) {
     const clickedElement = e.target
@@ -149,3 +137,9 @@ function increaseShadeColor(e) {
         clickedElement.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
     }
 };
+
+window.onload = () => {
+    currentMode = "color"
+}
+
+createGrid();
