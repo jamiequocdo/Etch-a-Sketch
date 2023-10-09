@@ -1,20 +1,22 @@
-//Does .type property fit into this code?
+//TODO Draw a diagram of how each function works (To understand what is going on with the program)
 const singleColorButton = document.getElementById("singleColorButton");
+const rainbowButton = document.getElementById("rainbowButton");
+const shaderButton = document.getElementById("shaderButton");
 const eraserButton = document.getElementById("eraserButton");
 const clearButton = document.getElementById("clearButton");
 const colorPicker = document.getElementById("colorPicker");
 const gridValue = document.getElementById("gridValue");
 const outputValue = document.getElementById("outputValue");
-const squared = document.getElementById("div-container");
+const squareContainer = document.getElementById("squareContainer");
 const colorPreview = document.getElementById("colorPreview")
 
 let maxSquares = "";
 let isMouseDown = false;
+let currentMode = "color";
 
 document.body.addEventListener("mousedown", () => {
     isMouseDown = true;
 });
-
 document.body.addEventListener("mouseup", () => {
     isMouseDown = false;
 });
@@ -30,82 +32,85 @@ function createGrid() {
     resetGrid();
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`
     maxSquares = gridValue.value;
-    squared.style.setProperty("--max-squares", maxSquares);
+    squareContainer.style.setProperty("--max-squares", maxSquares);
     for (let i = 0; i < maxSquares * maxSquares; i++) {
         let square = document.createElement("div");
         square.classList.add("squareStyle");
-        square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = "black";    
-            }
-        })    
-    squared.appendChild(square);
-
+        square.addEventListener("mouseover", changeColor);
+        square.addEventListener("mousedown", changeColor); 
+    squareContainer.appendChild(square);
     }
 }
 
-//Single Color button - Automatically black.
 colorPicker.addEventListener("input", () => {
-    const allSquares = document.querySelectorAll(".squareStyle");
+    setCurrentMode("color");
     colorPreview.style.backgroundColor = colorPicker.value;
-    allSquares.forEach(square => {
-        square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = colorPicker.value;
-            }
-        })
-    })
+})
+//Rainbow Collor: Mouseover square elements now changes color to a random color
+rainbowButton.addEventListener("click", () => {
+    setCurrentMode("rainbow");
+});
+
+shaderButton.addEventListener("click", () => {
+    setCurrentMode("shader");
 })
 
-//Rainbow Collor: Mouseover square elements now changes color to a random color
-const rainbowButton = document.getElementById("rainbowButton");
-rainbowButton.addEventListener("click", toggleRainbowSquares);
-function toggleRainbowSquares() {
-    const allSquares = document.querySelectorAll(".squareStyle");
-    allSquares.forEach(element => {
-        let redValue = "";
-        let greenValue = "";
-        let blueValue = "";
-        let rgbNames = [redValue, greenValue, blueValue];
-        element.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-            let rgbValues = [];
-            rgbNames.forEach(value => {
-                value = Math.floor(Math.random() * 255);
-                rgbValues.push(value);
-            })
-            element.style.backgroundColor = `rgb(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]})`
-            }
-        })
-    })
+eraserButton.addEventListener("click", () => {
+    setCurrentMode("eraser");
+})
+
+function setCurrentMode(newMode) {
+    activateNewMode(newMode);
+    currentMode = newMode;
 }
 
-//This allows Shader button to change mouseover to only do shading from black to white
-const shaderButton = document.getElementById("shaderButton");
-shaderButton.addEventListener("click", toggleShaderSquares)
-function toggleShaderSquares () {
-    const allSquares = document.querySelectorAll(".squareStyle");
-    allSquares.forEach(element => {
-        let redValue = 0;
-        let greenValue = 0;
-        let blueValue = 0;
-        element.addEventListener("mouseover", () => {
-            if (redValue <100 && isMouseDown) {
-                redValue += 10;
-                greenValue += 10;
-                blueValue += 10;
-                let rgbNames = [redValue, greenValue, blueValue];
-                element.style.backgroundColor = `rgb(${rgbNames[0]}%, ${rgbNames[1]}%, ${rgbNames[2]}%)`;
-                console.log(rgbNames);
-            }
+function activateNewMode(newMode) {
+    if (currentMode === "color") {
+        const allButtons = document.querySelectorAll(".active");
+        allButtons.forEach (button => {
+            button.classList.remove("active");
         })
-    })
+    }
+    if (currentMode === "rainbow") {
+        rainbowButton.classList.remove("active");
+    } else if (currentMode === "shader") {
+        shaderButton.classList.remove("active");
+    } else if (currentMode === "eraser") {
+        eraserButton.classList.remove("active");
+    };
+
+    if (newMode === "rainbow") {
+        rainbowButton.classList.add("active");
+    } else if (newMode === "shader") {
+        shaderButton.classList.add("active");
+    } else if (newMode === "eraser") {
+        eraserButton.classList.add("active");
+    };
 }
+
+
+
+function changeColor(e) {
+    if (e.type === "mouseover" && !isMouseDown) return;
+    if (currentMode === "color") {
+        e.target.style.backgroundColor = colorPicker.value
+    } else if (currentMode === "rainbow") {
+        randomR = Math.floor(Math.random() * 256);
+        randomG = Math.floor(Math.random() * 256);
+        randomB = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+    } else if (currentMode === "shader") {
+        increaseShadeColor(e);
+    } else if (currentMode === "eraser") {
+        e.target.style.backgroundColor = "rgb(255, 255, 255)";
+    }
+}
+
 
 gridValue.addEventListener("input", () => {
     outputValue.textContent = `${gridValue.value} x ${gridValue.value}`;
     maxSquares = gridValue.value;
-    squared.style.setProperty("--max-squares", maxSquares);
+    squareContainer.style.setProperty("--max-squares", maxSquares);
     createGrid();
 
     
@@ -118,25 +123,23 @@ clearButton.addEventListener("click", () => {
     })
 });
 
-eraserButton.addEventListener("click", () => {
-    let allSquares = document.querySelectorAll(".squareStyle");
+//Function for when currentMode = "shader";
+function increaseShadeColor(e) {
+    const clickedElement = e.target
+    const computedStyle = getComputedStyle(clickedElement);
+    const backgroundColor = computedStyle.backgroundColor;
+    const rgbMatch = backgroundColor.match(/\d+/g);
+    if (rgbMatch) {
+        const redValue = Math.min(parseInt(rgbMatch[0]) + 25, 255);
+        const greenValue = Math.min(parseInt(rgbMatch[1]) + 25, 255);
+        const blueValue = Math.min(parseInt(rgbMatch[2]) + 25, 255);
 
-    allSquares.forEach(square => {
-        square.addEventListener("mouseover", () => {
-            if (isMouseDown) {
-                square.style.backgroundColor = "white";
-            }
-        })
-    })
-})
+        clickedElement.style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+    }
+};
+
+window.onload = () => {
+    currentMode = "color"
+}
 
 createGrid();
-
-//TODO Button highlights to show what setting is active
-const buttons = document.querySelectorAll(".button");
-
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        button.classList.toggle("active");
-    })
-})
