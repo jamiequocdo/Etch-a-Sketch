@@ -87,7 +87,9 @@ html {
 
 /*Element where grid appears*/
 #squareContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(var(--max-squares), 1fr);
+    grid-template-rows: repeat(var(--max-squares), 1fr);
     height: 400px;
     width: 400px;
     background-color: white;
@@ -104,8 +106,6 @@ html {
     padding: 0;
     background-color: white;
     user-select: none;
-    width: calc(100% / var(--max-squares));
-    height: calc(100% / var(--max-squares));
 }
 
 #outputValue {
