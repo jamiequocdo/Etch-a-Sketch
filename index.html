@@ -6,34 +6,39 @@
         <meta charset="UTF-8">
         <title>Etch-A-Sketch</title>
         <link rel="stylesheet" href="style.css">
-        
 
     </head>
  
     <body>
+        <div class="test">
+        <h1 id="title">Etch-A-Sketch</h1>
         <div id="contentContainer">
             <div id="button-div">
                 <div id="colorPickerContainer">
                     <input type="color" id="colorPicker" value="#000000">
                     <div id="colorPreview"></div>
                 </div>
-                <button id="rainbowButton" class="button">Rainbow</button>
-                <button id="shaderButton" class="button">Shader</button>
-                <button id="eraserButton" class="button">Erase</button>
-                <button id="clearButton" class="button">Clear</button>
+                <div id="four-buttons">
+                    <button id="rainbowButton" class="button">Rainbow</button>
+                    <button id="shaderButton" class="button">Shader</button>
+                    <button id="eraserButton" class="button">Erase</button>
+                    <button id="clearButton" class="button">Clear</button>
+                </div>
+                
                 <input type="range" id="gridValue" value="5" min="1" max="24">
                 <p id="outputValue"></p>
             
             </div>
-            <div id="div-container"></div>
-        
+            <div id="squareContainer"></div>
+            
         </div>
-        
 
-        
-        
-
-
+        <footer id="footer">
+            <p id="footer-content">Copyright ©
+                <script>document.write(new Date().getFullYear())</script>
+            jamiequocdo</p>
+        </footer>
         <script src="script.js"></script>
+        </div>
     </body>
 </html>
